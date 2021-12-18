@@ -1,0 +1,20 @@
+//
+//  serviceProvider.swift
+//  laundryApp
+//
+//  Created by Nada Alansari on 14/05/1443 AH.
+//
+
+import Foundation
+
+struct serviceProvider {
+    
+    var id : String
+    var companyName : String
+    var password : String
+    var email : String
+    var commericalNumber : String
+    var geolat : Float
+    var geolng : Float
+    var address : String    
+}
