@@ -16,5 +16,6 @@ struct serviceProvider {
     var commericalNumber : String
     var geolat : Float
     var geolng : Float
-    var address : String    
+    var address : String
+    var serviceProviderServices : serviceProviderServices
 }
