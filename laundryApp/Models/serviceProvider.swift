@@ -17,5 +17,21 @@ struct serviceProvider {
     var geolat : Float
     var geolng : Float
     var address : String
-    var serviceProviderServices : serviceProviderServices
+//    var serviceProviderServices : serviceProviderServices
+}
+struct serviceProviderPrpfile{
+    var id : String
+    var commericalNumber : String
+    var geolat : Float
+    var geolng : Float
+    var administrativeArea : String
+    var country : String
+
+}
+
+struct serviceProviderLogin{
+    var email : String
+    var password : String
+
+
 }

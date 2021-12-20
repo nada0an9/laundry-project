@@ -28,6 +28,9 @@
 		2D9AD7B5276DEBCB00BB4DD2 /* serviceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9AD7B4276DEBCB00BB4DD2 /* serviceProvider.swift */; };
 		2D9AD7B7276E3D1900BB4DD2 /* DatabaseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9AD7B6276E3D1900BB4DD2 /* DatabaseHandler.swift */; };
 		2D9AD7BB276E47F400BB4DD2 /* services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9AD7BA276E47F400BB4DD2 /* services.swift */; };
+		2D9AD7BD276F0E1E00BB4DD2 /* loginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9AD7BC276F0E1E00BB4DD2 /* loginViewController.swift */; };
+		2D9AD7BF276F240900BB4DD2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2D9AD7BE276F240900BB4DD2 /* GoogleService-Info.plist */; };
+		2D9AD7C1276F3C0900BB4DD2 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9AD7C0276F3C0900BB4DD2 /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +46,9 @@
 		2D9AD7B4276DEBCB00BB4DD2 /* serviceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = serviceProvider.swift; sourceTree = "<group>"; };
 		2D9AD7B6276E3D1900BB4DD2 /* DatabaseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHandler.swift; sourceTree = "<group>"; };
 		2D9AD7BA276E47F400BB4DD2 /* services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = services.swift; sourceTree = "<group>"; };
+		2D9AD7BC276F0E1E00BB4DD2 /* loginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginViewController.swift; sourceTree = "<group>"; };
+		2D9AD7BE276F240900BB4DD2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2D9AD7C0276F3C0900BB4DD2 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +76,7 @@
 		2D9AD77A276B5B7700BB4DD2 = {
 			isa = PBXGroup;
 			children = (
+				2D9AD7BE276F240900BB4DD2 /* GoogleService-Info.plist */,
 				2D9AD785276B5B7800BB4DD2 /* laundryApp */,
 				2D9AD784276B5B7800BB4DD2 /* Products */,
 			);
@@ -111,7 +118,9 @@
 		2D9AD7B9276E3F4000BB4DD2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				2D9AD7C0276F3C0900BB4DD2 /* MapViewController.swift */,
 				2D9AD78A276B5B7800BB4DD2 /* ViewController.swift */,
+				2D9AD7BC276F0E1E00BB4DD2 /* loginViewController.swift */,
 				2D9AD7B2276DEA8400BB4DD2 /* signUPViewController.swift */,
 			);
 			path = Controller;
@@ -193,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D9AD793276B5B7B00BB4DD2 /* LaunchScreen.storyboard in Resources */,
+				2D9AD7BF276F240900BB4DD2 /* GoogleService-Info.plist in Resources */,
 				2D9AD790276B5B7B00BB4DD2 /* Assets.xcassets in Resources */,
 				2D9AD78E276B5B7800BB4DD2 /* Main.storyboard in Resources */,
 			);
@@ -209,6 +219,8 @@
 				2D9AD787276B5B7800BB4DD2 /* AppDelegate.swift in Sources */,
 				2D9AD7B3276DEA8400BB4DD2 /* signUPViewController.swift in Sources */,
 				2D9AD7B7276E3D1900BB4DD2 /* DatabaseHandler.swift in Sources */,
+				2D9AD7C1276F3C0900BB4DD2 /* MapViewController.swift in Sources */,
+				2D9AD7BD276F0E1E00BB4DD2 /* loginViewController.swift in Sources */,
 				2D9AD7BB276E47F400BB4DD2 /* services.swift in Sources */,
 				2D9AD789276B5B7800BB4DD2 /* SceneDelegate.swift in Sources */,
 				2D9AD7B5276DEBCB00BB4DD2 /* serviceProvider.swift in Sources */,
@@ -362,6 +374,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = laundryApp/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = lkj;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "alwa need your location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = lkj;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -389,6 +404,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = laundryApp/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = lkj;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "alwa need your location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = lkj;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
