@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D30360D27709A6200B39369 /* servicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D30360C27709A6200B39369 /* servicesViewController.swift */; };
 		2D9AD787276B5B7800BB4DD2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9AD786276B5B7800BB4DD2 /* AppDelegate.swift */; };
 		2D9AD789276B5B7800BB4DD2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9AD788276B5B7800BB4DD2 /* SceneDelegate.swift */; };
 		2D9AD78B276B5B7800BB4DD2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9AD78A276B5B7800BB4DD2 /* ViewController.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D30360C27709A6200B39369 /* servicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = servicesViewController.swift; sourceTree = "<group>"; };
 		2D9AD783276B5B7800BB4DD2 /* laundryApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = laundryApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D9AD786276B5B7800BB4DD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2D9AD788276B5B7800BB4DD2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				2D9AD7C0276F3C0900BB4DD2 /* MapViewController.swift */,
+				2D30360C27709A6200B39369 /* servicesViewController.swift */,
 				2D9AD78A276B5B7800BB4DD2 /* ViewController.swift */,
 				2D9AD7BC276F0E1E00BB4DD2 /* loginViewController.swift */,
 				2D9AD7B2276DEA8400BB4DD2 /* signUPViewController.swift */,
@@ -221,6 +224,7 @@
 				2D9AD7B7276E3D1900BB4DD2 /* DatabaseHandler.swift in Sources */,
 				2D9AD7C1276F3C0900BB4DD2 /* MapViewController.swift in Sources */,
 				2D9AD7BD276F0E1E00BB4DD2 /* loginViewController.swift in Sources */,
+				2D30360D27709A6200B39369 /* servicesViewController.swift in Sources */,
 				2D9AD7BB276E47F400BB4DD2 /* services.swift in Sources */,
 				2D9AD789276B5B7800BB4DD2 /* SceneDelegate.swift in Sources */,
 				2D9AD7B5276DEBCB00BB4DD2 /* serviceProvider.swift in Sources */,

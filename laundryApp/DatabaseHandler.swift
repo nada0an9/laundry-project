@@ -7,19 +7,22 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 
-
+protocol DatabaseDategate  {
+    
+    func readAllservices(result: [services])
+}
 class DatabaseHandler{
     
-
     //connection with firestore
     let dbStore = Firestore.firestore()
     var logedUserId : String?
-    
+    var result = [services]()
+    var delegate: DatabaseDategate!
+
     func createServiceProvider(newUser : serviceProvider){
         //create the service provider
         Auth.auth().createUser(withEmail: newUser.email, password: newUser.password) { result, error in
             if(error == nil){
-                
                 self.logedUserId  = result?.user.uid
                 print(self.logedUserId)
                 //add the company to the colllection
@@ -27,9 +30,8 @@ class DatabaseHandler{
                     "userId": self.logedUserId,
                     "companyName" : newUser.companyName
                 ])
-                
                 print("Service Provider Added sucsessfuly")
-            
+                
             }
             else{
                 print(error?.localizedDescription ?? "")
@@ -37,11 +39,8 @@ class DatabaseHandler{
         }
     }
     
-    
     func login(loggedUser : serviceProviderLogin){
-        
         var checkloggedUser : Bool = false
-        
         Auth.auth().signIn(withEmail: loggedUser.email, password:loggedUser.password) { result, error in
             if(error == nil){
                 self.logedUserId = result?.user.uid
@@ -64,19 +63,33 @@ class DatabaseHandler{
     func updateServiceProviderProfile(newProfile : serviceProviderPrpfile){
         dbStore.collection("serviceProvider")
             .whereField("userId", isEqualTo: newProfile.id)
-          .getDocuments() { (querySnapshot, err) in
-            if let document = querySnapshot!.documents.first{
-              document.reference.updateData([
-                "commericalNumber" : newProfile.commericalNumber,
-                "geolat" : newProfile.geolat,
-                "geolng" : newProfile.geolng,
-                "administrativeArea" : newProfile.administrativeArea,
-                "country": newProfile.country
-              ])
+            .getDocuments() { (querySnapshot, err) in
+                if let document = querySnapshot!.documents.first{
+                    document.reference.updateData([
+                        "commericalNumber" : newProfile.commericalNumber,
+                        "geolat" : newProfile.geolat,
+                        "geolng" : newProfile.geolng,
+                        "administrativeArea" : newProfile.administrativeArea,
+                        "country": newProfile.country
+                    ])
+                }
             }
-          }
         print("Service Provider Profile Updated Sucsessfuly")
-        
+    }
+    
+    func readAllservices(){
+        dbStore.collection("services").addSnapshotListener { [self] snapshot, error in
+            if let doc = snapshot?.documents{
+                for item in doc {
+                    let name = item["serviceName"] as? String ?? ""
+                    //object from services model
+                    var s =  services(serviceId: item.documentID, serviceName: name, servicePhoto: "")
+                    self.result.append(s)
+                }
+                delegate.readAllservices(result: self.result)
+
+            }
+        }
     }
     
 }

@@ -14,7 +14,6 @@ class signUPViewController: UIViewController {
         
         //object from database
         var db = DatabaseHandler()
-
         
         //object from serviceProvider
         var newUser = serviceProvider(id: "0", companyName: laundaryName.text!, password: passwordField.text!, email: emailField.text!, commericalNumber: commericalNumbers.text!, geolat: 33.77, geolng: 77.98765, address: "")
