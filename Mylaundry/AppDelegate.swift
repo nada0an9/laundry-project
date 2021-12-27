@@ -1,13 +1,17 @@
 //
 //  AppDelegate.swift
-//  laundryApp
-//  Created by Nada Alansari on 12/05/1443 AH.
+//  Mylaundry
+//
+//  Created by Nada Alansari on 19/05/1443 AH.
 //
 
 import UIKit
 import Firebase
+ 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
+
+
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

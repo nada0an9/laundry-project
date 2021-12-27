@@ -12,9 +12,8 @@ struct services{
     var serviceId : String
     var serviceName : String
     var servicePhoto : String
-}
-struct serviceProviderServices{
-    var serviceId : String
     var servicePrice :String
     var serviceStatus :String
 }
+
+

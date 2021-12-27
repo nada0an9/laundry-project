@@ -8,7 +8,6 @@
 import Foundation
 
 struct serviceProvider {
-    
     var id : String
     var companyName : String
     var password : String
@@ -32,6 +31,4 @@ struct serviceProviderPrpfile{
 struct serviceProviderLogin{
     var email : String
     var password : String
-
-
 }

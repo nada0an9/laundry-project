@@ -1,37 +1,45 @@
 //
 //  MapViewController.swift
-//  laundryApp
-//
-//  Created by Nada Alansari on 15/05/1443 AH.
-//
+//  Mylaundry
+//  Created by Nada Alansari on 21/05/1443 AH.
 
 import UIKit
 import CoreLocation
 import MapKit
 
-class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
-    @IBOutlet weak var number: UITextField!
+class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate{
     
-    @IBOutlet weak var commericalNumber: UITextField!
+    @IBAction func saveBtn(_ sender: Any) {
+        print("we uupdate")
+        let db = DatabaseHandler()
+        
+        UserDefaults.standard.bool(forKey: "userLoggedIn")
+        let id = UserDefaults.standard.string(forKey: "userId")
+        print("my id \(id!)")
+        
+        let myProfile = customerProfile(
+                    customerId: id!,
+                    geolat: geolat!,
+                    geolng: geolng!,
+                    administrativeArea: administrativeArea!,
+                    country: country!)
+        
+        db.updateCcustomerProfile(newProfile: myProfile)
+        print("we uupdate")
+        
+
+    }
+
     var geolat : Float?
     var geolng : Float?
     var administrativeArea : String?
     var country: String?
-
-    @IBAction func saveProfile(_ sender: Any) {
-       
-        let db = DatabaseHandler()
-        UserDefaults.standard.bool(forKey: "userLoggedIn")  // true
-        let id = UserDefaults.standard.string(forKey: "userId")
-        print("my id \(id!)")
-        let myProfile = serviceProviderPrpfile(id: id!, commericalNumber: commericalNumber.text!, geolat: geolat!, geolng: geolng!, administrativeArea: administrativeArea!, country: country!)
-        db.updateServiceProviderProfile(newProfile: myProfile)
-    }
-    @IBOutlet weak var laundryLocation: MKMapView!
     var locationManager = CLLocationManager()
     let newPin = MKPointAnnotation()
     var canMove: Bool = true
 
+    @IBOutlet weak var customerMap: MKMapView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager = CLLocationManager()
@@ -42,8 +50,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             if CLLocationManager.locationServicesEnabled(){
                 locationManager.startUpdatingLocation()
             }
-        
+        // Do any additional setup after loading the view.
     }
+    
     //MARK: - location delegate methods
 func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     let userLocation :CLLocation = locations[0] as CLLocation
@@ -75,6 +84,8 @@ func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:
 func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
     print("Error \(error)")
 }
+    
 
+ 
 
 }

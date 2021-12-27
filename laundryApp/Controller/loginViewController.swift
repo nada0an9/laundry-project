@@ -12,28 +12,20 @@ class loginViewController: UIViewController {
 
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
-    
+
     @IBAction func loginBtn(_ sender: Any) {
-        
         var db = DatabaseHandler()
         var logedUser = serviceProviderLogin(email: emailField.text!, password: passwordField.text!)
 
         db.login(loggedUser: logedUser)
-    
-        performSegue(withIdentifier: "home", sender: self)
-//        if(s == true){
-//            print("true")
-//            performSegue(withIdentifier: "home", sender: self)
-//        }
-//        else{
-//            print("cannot login")
-//        }
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(identifier: "homeId")
+        self.present(vc, animated: true, completion: nil)
+        
     }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
     
 
