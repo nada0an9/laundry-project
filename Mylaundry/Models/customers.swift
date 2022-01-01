@@ -32,7 +32,6 @@ struct customerLogin{
     var password : String
 }
 struct closetProvider {
-    
     var id : String
     var name: String
     var coord : CLLocation

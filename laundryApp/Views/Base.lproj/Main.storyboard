@@ -198,49 +198,65 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="laundary Location " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WT5-kB-w5S">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="laundary Location " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WT5-kB-w5S">
                                 <rect key="frame" x="20" y="218" width="140" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="90z-cd-djL"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="c8e-CI-1WS">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="c8e-CI-1WS">
                                 <rect key="frame" x="9" y="275" width="374" height="376"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="376" id="Ise-eE-ka0"/>
+                                </constraints>
                             </mapView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="My Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WrE-OB-Pa4">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WrE-OB-Pa4">
                                 <rect key="frame" x="20" y="42" width="76" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Amz-Dw-FiT">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Amz-Dw-FiT">
                                 <rect key="frame" x="20" y="123" width="253" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eLn-TW-ZSt">
-                                <rect key="frame" x="187" y="723" width="56" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="tinted" title="Save"/>
-                                <connections>
-                                    <action selector="saveProfile:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RrL-yH-5N1"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Commercial Registration Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gws-pz-E4J">
-                                <rect key="frame" x="20" y="88" width="253" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Commercial Registration Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gws-pz-E4J">
+                                <rect key="frame" x="20" y="102.5" width="253" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6B9-Y8-5Fx">
+                                <rect key="frame" x="316" y="197" width="67" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                <connections>
+                                    <action selector="updateProfile:" destination="BYZ-38-t0r" eventType="touchUpInside" id="j1F-7J-uVo"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6B9-Y8-5Fx" firstAttribute="trailing" secondItem="c8e-CI-1WS" secondAttribute="trailing" id="7tS-JO-bfI"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="c8e-CI-1WS" secondAttribute="trailing" constant="31" id="Ngi-oz-3UP"/>
+                            <constraint firstItem="c8e-CI-1WS" firstAttribute="top" secondItem="WT5-kB-w5S" secondAttribute="bottom" constant="22" id="VUZ-Nk-cBw"/>
+                            <constraint firstItem="Gws-pz-E4J" firstAttribute="top" secondItem="WrE-OB-Pa4" secondAttribute="bottom" constant="39.5" id="aNT-pp-Xo8"/>
+                            <constraint firstItem="WrE-OB-Pa4" firstAttribute="leading" secondItem="Gws-pz-E4J" secondAttribute="leading" id="cbd-bg-pg8"/>
+                            <constraint firstItem="WT5-kB-w5S" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="dON-rR-eRp"/>
+                            <constraint firstItem="Amz-Dw-FiT" firstAttribute="leading" secondItem="Gws-pz-E4J" secondAttribute="leading" id="das-Fj-si8"/>
+                            <constraint firstItem="WT5-kB-w5S" firstAttribute="leading" secondItem="Gws-pz-E4J" secondAttribute="leading" id="hIH-0c-Mhb"/>
+                            <constraint firstItem="Amz-Dw-FiT" firstAttribute="trailing" secondItem="Gws-pz-E4J" secondAttribute="trailing" id="jEK-Af-9sv"/>
+                            <constraint firstItem="6B9-Y8-5Fx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="153" id="mVj-4x-B6p"/>
+                            <constraint firstItem="c8e-CI-1WS" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="275" id="nxX-MT-eSm"/>
+                            <constraint firstItem="Amz-Dw-FiT" firstAttribute="top" secondItem="Gws-pz-E4J" secondAttribute="bottom" id="pV4-6J-KPn"/>
+                            <constraint firstItem="c8e-CI-1WS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="9" id="qpQ-vW-YdA"/>
+                            <constraint firstItem="WT5-kB-w5S" firstAttribute="top" secondItem="Amz-Dw-FiT" secondAttribute="bottom" constant="61" id="wG3-6k-7hy"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="Ray-k0-y9s"/>
                     <navigationItem key="navigationItem" id="HbN-65-YWn"/>

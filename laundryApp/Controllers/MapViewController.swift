@@ -18,15 +18,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var administrativeArea : String?
     var country: String?
 
-    @IBAction func saveProfile(_ sender: Any) {
-       
-        let db = DatabaseHandler()
-        UserDefaults.standard.bool(forKey: "userLoggedIn")  // true
-        let id = UserDefaults.standard.string(forKey: "userId")
-        print("my id \(id!)")
-        let myProfile = serviceProviderPrpfile(id: id!, commericalNumber: commericalNumber.text!, geolat: geolat!, geolng: geolng!, administrativeArea: administrativeArea!, country: country!)
-        db.updateServiceProviderProfile(newProfile: myProfile)
+    @IBAction func updateProfile(_ sender: Any) {
+        
+        print("i pres ----------")
+         let db = DatabaseHandler()
+         UserDefaults.standard.bool(forKey: "userLoggedIn")  // true
+         let id = UserDefaults.standard.string(forKey: "userId")
+         print("my id \(id!)")
+         
+         let myProfile = serviceProviderPrpfile(id: id!, commericalNumber: commericalNumber.text!, geolat: geolat!, geolng: geolng!, administrativeArea: administrativeArea!, country: country!)
+         db.updateServiceProviderProfile(newProfile: myProfile)
     }
+
     @IBOutlet weak var laundryLocation: MKMapView!
     var locationManager = CLLocationManager()
     let newPin = MKPointAnnotation()

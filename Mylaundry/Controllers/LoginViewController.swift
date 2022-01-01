@@ -10,10 +10,8 @@ import UIKit
 class LoginViewController: UIViewController {
 
     @IBAction func loginBtn(_ sender: Any) {
-        var db = DatabaseHandler()
-        
+        let db = DatabaseHandler()
         var logedUser = customerLogin(email: email.text!, password: password.text!)
-
         db.customerLogin(loggedUser: logedUser)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "homeId")
@@ -29,14 +27,5 @@ class LoginViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

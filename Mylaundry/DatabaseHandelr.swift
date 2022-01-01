@@ -11,10 +11,13 @@ import FirebaseFirestore
 import CoreLocation
 
 protocol DatabaseDategate  {
-        func readAllClosestServices(result: [closetProvider])
-        func readProviderServices(myServices: [services])
+    func readAllClosestServices(result: [closetProvider])
+}
+protocol sendSpesificServices{
+    func readProviderServices(myServices: [services])
 
 }
+
 
 class DatabaseHandler{
     //connection with firestore
@@ -22,12 +25,17 @@ class DatabaseHandler{
     var logedUserId : String?
     var result = [closetProvider]()
     var delegate: DatabaseDategate!
+    var sendSpesificServices: sendSpesificServices!
 
     var userAdministrativeArea: String = ""
     var geoLat: Double?
     var geoLan: Double?
     var userLocation = CLLocation(latitude: 53.45678, longitude: 13.54455)
+    
     var myServices = [services]()
+    
+    
+    // MARK: Authentication
 
     func createCustomer(newUser : customer){
         //create the Customer
@@ -52,6 +60,7 @@ class DatabaseHandler{
             }
         }
     }
+    
     func customerLogin(loggedUser : customerLogin){
         Auth.auth().signIn(withEmail: loggedUser.email, password:loggedUser.password) { result, error in
             if(error == nil){
@@ -84,8 +93,11 @@ class DatabaseHandler{
             }
         print("Profile Updated Sucsessfuly")
     }
-
+    
+    // MARK: Services
+    
     func ListClosestServiceProvider(){
+        //get customer location
         let id = UserDefaults.standard.string(forKey: "userId")
         dbStore.collection("Customer").whereField("userId", isEqualTo: id!)
             .getDocuments(){ (querySnapshot, err) in
@@ -93,7 +105,6 @@ class DatabaseHandler{
                     let administrativeArea =  document["administrativeArea"] as? String ?? ""
                     let geolat =  document["geolat"] as? Double ?? 1.7777
                     let geolng =  document["geolng"] as? Double ?? 3.777
-
                     print("administrativeArea")
                     self.userAdministrativeArea = administrativeArea
                     self.geoLat = geolat
@@ -127,27 +138,13 @@ class DatabaseHandler{
                             )
                         }
                     }
-                    
-                    print("geolng")
-                    self.geoLan = geolng
-                    print(self.geoLan ?? 4.44)
-                    
-                    print("geolat")
-                    self.geoLat = geolat
-                    print(self.geoLat ?? 8.99)
                 }
             }
-        let s = "Al Madinah"
-        let r = self.userAdministrativeArea
-        print(s)
-        print("here r")
-        print(r)
 
     }
-    
+
     //function to get all services for the spesific service provider  and fetch it to the model
     func getSpesificServices(serviceProviderId :String){
-        
         dbStore.collection("serviceProvider")
             .document(serviceProviderId)
             .collection("services")
@@ -155,22 +152,66 @@ class DatabaseHandler{
                 if let doc = querySnapshot?.documents{
                     for item in doc {
                         let serviceId = item["servicesID"] as? String ?? ""
-                        let serviceName = item["serviceName"] as? String ?? ""
                         let servicePrice = item["price"] as? String ?? ""
-                        let serviceStatus = item["serviceName"] as? String ?? ""
-                        let servicePic = item["servicePic"] as? String ?? ""
-                        
-                        //object from the services model
-                        let services = services(providerId: serviceProviderId, serviceId: serviceId, serviceName: serviceName, servicePhoto: servicePic, servicePrice: servicePic)
-                        
+                        let services = services(providerId: serviceProviderId, serviceId: serviceId, serviceName:  "b", servicePhoto: "s", servicePrice: servicePrice)
                         self.myServices.append(services)
-                        print( self.myServices)
+                        
+//                        var s :String = ""
+//                        var b :String = ""
+
+//                        var docRef = self.dbStore.collection("services").document(serviceId)
+//                        docRef.getDocument { (document, error) in
+//                            if let document = document, document.exists {
+//                               s = document["servicePic"] as? String ?? ""
+//                               b = document["serviceName"] as? String ?? ""
+//                                //object from the services model
+//
+//                            } else {
+//                                print("Document does not exist")
+//                            }
+//
+//                        }
+     
                     }
-                    self.delegate.readProviderServices(myServices: self.myServices)
+                    
+               self.sendSpesificServices.readProviderServices(myServices: self.myServices)
 
                 }
             }
     }
+    
+    // MARK: Orders
+
+    //function to add order with services
+    func addOrder(newOrder: order, orderServices: orderServices) {
+        
+        //add order
+        let ref = dbStore.collection("order").document()
+        
+        // ref is a DocumentReference
+        let id = ref.documentID
+        
+        ref.setData([
+            "orderDate" : newOrder.orderDate,
+            "orderStatus" : newOrder.orderStatus,
+            "customerId" : UserDefaults.standard.string(forKey: "userId"),
+            "serviceProviderId": newOrder.serviceProviderId
+        ])
+        
+        //add order proudect
+//        dbStore.collection("Orders").document(id).collection("order_Products").addDocument(data: [
+//            "qty" : orderServices.servicesQty,
+//            "productID": orderServices.serviceID
+//
+//        ])
+        
+        print("Order Added sucsessfuly")
+
+    }
+    
+    
+
+
 }
          
           

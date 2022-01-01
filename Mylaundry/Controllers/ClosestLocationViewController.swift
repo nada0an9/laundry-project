@@ -9,23 +9,17 @@ import UIKit
 import CoreLocation
 
 class ClosestLocationViewController: UIViewController ,DatabaseDategate,UICollectionViewDataSource, UICollectionViewDelegate {
+    
     var s = [services]()
-    func readProviderServices(myServices: [services]) {
-        
-        s = myServices
-    }
-    
-    
     var closetLocation = [closetProvider]()
     var ServicesId : String = ""
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "show_det"
         {
-      
+           
             let detailsVC = segue.destination as! ServiceProviderDetailsViewController
             detailsVC.s = self.ServicesId
-
         }
         
     }
@@ -69,7 +63,6 @@ class ClosestLocationViewController: UIViewController ,DatabaseDategate,UICollec
    
     }
     override func viewDidAppear(_ animated: Bool) {
-        
         closetsLocationsCollection.dataSource = self
         closetsLocationsCollection.delegate = self
         print("viewWillAppear count")
@@ -77,6 +70,5 @@ class ClosestLocationViewController: UIViewController ,DatabaseDategate,UICollec
         closetsLocationsCollection.reloadData()
 
     }
-//
 
 }

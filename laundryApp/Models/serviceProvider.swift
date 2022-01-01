@@ -16,7 +16,6 @@ struct serviceProvider {
     var geolat : Float
     var geolng : Float
     var address : String
-//    var serviceProviderServices : serviceProviderServices
 }
 struct serviceProviderPrpfile{
     var id : String
