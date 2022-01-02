@@ -15,7 +15,7 @@ protocol DatabaseDategate  {
 }
 protocol sendSpesificServices{
     func readProviderServices(myServices: [services])
-
+    
 }
 
 
@@ -26,7 +26,7 @@ class DatabaseHandler{
     var result = [closetProvider]()
     var delegate: DatabaseDategate!
     var sendSpesificServices: sendSpesificServices!
-
+    
     var userAdministrativeArea: String = ""
     var geoLat: Double?
     var geoLan: Double?
@@ -36,7 +36,7 @@ class DatabaseHandler{
     
     
     // MARK: Authentication
-
+    
     func createCustomer(newUser : customer){
         //create the Customer
         Auth.auth().createUser(withEmail: newUser.customerEmail, password: newUser.password) { result, error in
@@ -72,9 +72,9 @@ class DatabaseHandler{
                 UserDefaults.standard.synchronize()
             }
             else{
-                print("login fali")
                 print(error?.localizedDescription ?? "")
             }
+            
         }
     }
     
@@ -110,8 +110,8 @@ class DatabaseHandler{
                     self.geoLat = geolat
                     self.geoLan = geolng
                     self.userLocation = CLLocation(latitude: self.geoLat!, longitude: self.geoLan!)
-
-
+                    
+                    
                     //list all service provider in same administrative area of the customer
                     self.dbStore.collection("serviceProvider").whereField("administrativeArea", isEqualTo: self.userAdministrativeArea).addSnapshotListener { [self] snapshot, error in
                         if let doc = snapshot?.documents{
@@ -130,21 +130,23 @@ class DatabaseHandler{
                                 
                                 self.result.append(closetProvider)
                                 
-                   
+                                
                             }
                             
                             delegate.readAllClosestServices(result: self.result.sorted(by: { $0.coord.distance(from: self.userLocation) < $1.coord.distance(from: self.userLocation) })
-
+                                                            
                             )
                         }
                     }
                 }
             }
-
+        
     }
-
+    
     //function to get all services for the spesific service provider  and fetch it to the model
     func getSpesificServices(serviceProviderId :String){
+        
+        
         dbStore.collection("serviceProvider")
             .document(serviceProviderId)
             .collection("services")
@@ -153,37 +155,54 @@ class DatabaseHandler{
                     for item in doc {
                         let serviceId = item["servicesID"] as? String ?? ""
                         let servicePrice = item["price"] as? String ?? ""
-                        let services = services(providerId: serviceProviderId, serviceId: serviceId, serviceName:  "b", servicePhoto: "s", servicePrice: servicePrice)
-                        self.myServices.append(services)
+                        var b = ""
+                        var s = ""
                         
-//                        var s :String = ""
-//                        var b :String = ""
+                        var docRef = self.dbStore.collection("services").document(serviceId)
+                        docRef.getDocument { (document, error) in
+                            if let document = document, document.exists {
+                                s = document["servicePic"] as? String ?? ""
+                                b = document["serviceName"] as? String ?? ""
+                                let services = services(providerId: serviceProviderId, serviceId: serviceId, serviceName: b, servicePhoto: s, servicePrice: servicePrice)
+                                self.myServices.append(services)
+                                
+                                //object from the services model
+                                
+                            } else {
+                                print("Document does not exist")
+                                
+                            }
+                            self.sendSpesificServices.readProviderServices(myServices: self.myServices)
 
-//                        var docRef = self.dbStore.collection("services").document(serviceId)
-//                        docRef.getDocument { (document, error) in
-//                            if let document = document, document.exists {
-//                               s = document["servicePic"] as? String ?? ""
-//                               b = document["serviceName"] as? String ?? ""
-//                                //object from the services model
-//
-//                            } else {
-//                                print("Document does not exist")
+                        }
+//                        self.dbStore.collection("services").addSnapshotListener { [self] snapshot, error in
+//                            if let doc = snapshot?.documents{
+//                                for item in doc {
+//                                    if(item.documentID == serviceId){
+//                                        name = item["serviceName"] as? String ?? ""
+//                                        let services = services(providerId: serviceProviderId, serviceId: serviceId, serviceName: name, servicePhoto: "s", servicePrice: servicePrice)
+//                                        self.myServices.append(services)
+//                                        
+//                                    }
+//                                }
+//                                self.sendSpesificServices.readProviderServices(myServices: self.myServices)
+//                                
+//                                
 //                            }
-//
+//                            
 //                        }
-     
                     }
                     
-               self.sendSpesificServices.readProviderServices(myServices: self.myServices)
-
+                    
+                    
                 }
             }
     }
     
     // MARK: Orders
-
+    
     //function to add order with services
-    func addOrder(newOrder: order, orderServices: orderServices) {
+    func addOrder(newOrder: order) {
         
         //add order
         let ref = dbStore.collection("order").document()
@@ -194,24 +213,26 @@ class DatabaseHandler{
         ref.setData([
             "orderDate" : newOrder.orderDate,
             "orderStatus" : newOrder.orderStatus,
-            "customerId" : UserDefaults.standard.string(forKey: "userId"),
+            "customerId" : newOrder.coustomerId,
             "serviceProviderId": newOrder.serviceProviderId
         ])
         
-        //add order proudect
-//        dbStore.collection("Orders").document(id).collection("order_Products").addDocument(data: [
-//            "qty" : orderServices.servicesQty,
-//            "productID": orderServices.serviceID
-//
-//        ])
-        
+        for item in newOrder.arrOrderServices{
+            //add order proudect
+            dbStore.collection("order").document(id).collection("orderService").addDocument(data: [
+                "qty" : item.servicesQty,
+                "serviceId": item.serviceID
+                
+            ])
+            
+        }
         print("Order Added sucsessfuly")
-
+        
     }
     
     
-
-
+    
+    
 }
-         
-          
+
+

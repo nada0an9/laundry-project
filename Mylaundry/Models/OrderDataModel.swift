@@ -8,11 +8,12 @@
 import Foundation
 
 struct order{
-   var orderID : String
-   var orderDate : String
-   var orderStatus : String
+    var orderID : String
+    var orderDate : String
+    var orderStatus : String
     var serviceProviderId: String
     var coustomerId:String
+    var arrOrderServices = [orderServices]()
 }
 struct orderServices{
     var serviceID : String

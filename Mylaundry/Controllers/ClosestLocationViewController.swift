@@ -1,12 +1,11 @@
 //
 //  ClosestLocationViewController.swift
 //  Mylaundry
-//
 //  Created by Nada Alansari on 21/05/1443 AH.
-//
 
 import UIKit
 import CoreLocation
+
 
 class ClosestLocationViewController: UIViewController ,DatabaseDategate,UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -49,7 +48,6 @@ class ClosestLocationViewController: UIViewController ,DatabaseDategate,UICollec
         print("now we comeee")
         print(result)
         closetLocation = result
-        
     }
     
     
