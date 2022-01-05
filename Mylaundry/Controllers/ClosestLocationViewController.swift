@@ -8,6 +8,8 @@ import CoreLocation
 
 
 class ClosestLocationViewController: UIViewController ,DatabaseDategate,UICollectionViewDataSource, UICollectionViewDelegate {
+
+    @IBOutlet weak var LoctionLable: UILabel!
     
     var s = [services]()
     var closetLocation = [closetProvider]()
@@ -16,7 +18,6 @@ class ClosestLocationViewController: UIViewController ,DatabaseDategate,UICollec
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "show_det"
         {
-           
             let detailsVC = segue.destination as! ServiceProviderDetailsViewController
             detailsVC.s = self.ServicesId
         }
@@ -36,7 +37,7 @@ class ClosestLocationViewController: UIViewController ,DatabaseDategate,UICollec
         
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    
+        
         ServicesId = closetLocation[indexPath.row].id
         performSegue(withIdentifier: "show_det", sender: self)
         
@@ -50,15 +51,36 @@ class ClosestLocationViewController: UIViewController ,DatabaseDategate,UICollec
         closetLocation = result
     }
     
-    
-
+    @IBAction func tapFunction(sender: UITapGestureRecognizer) {
+           print("tap working")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(identifier: "mapId")
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: true, completion: nil)
+       }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         let db = DatabaseHandler()
+        db.getCustomerLocation { s in
+            print("my area")
+            print(s)
+            self.LoctionLable.text = s
+        }
+ 
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(ClosestLocationViewController.tapFunction))
+        LoctionLable.isUserInteractionEnabled = true
+        LoctionLable.addGestureRecognizer(tap)
+        
         db.delegate = self
         db.ListClosestServiceProvider()
         closetsLocationsCollection.reloadData()
-   
+        print("here we are")
+ 
+ 
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         closetsLocationsCollection.dataSource = self
@@ -66,7 +88,7 @@ class ClosestLocationViewController: UIViewController ,DatabaseDategate,UICollec
         print("viewWillAppear count")
         print(closetLocation.count)
         closetsLocationsCollection.reloadData()
-
+        
     }
-
+    
 }

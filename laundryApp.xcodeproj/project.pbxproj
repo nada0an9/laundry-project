@@ -49,6 +49,8 @@
 		2DB60B772774B47800A95983 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DB60B752774B47800A95983 /* Main.storyboard */; };
 		2DB60B792774B47D00A95983 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DB60B782774B47D00A95983 /* Assets.xcassets */; };
 		2DB60B7C2774B47D00A95983 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DB60B7A2774B47D00A95983 /* LaunchScreen.storyboard */; };
+		2DD171692784311200DC90B3 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD171682784311200DC90B3 /* OrderViewController.swift */; };
+		2DD1716B2784350F00DC90B3 /* OrderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1716A2784350F00DC90B3 /* OrderCollectionViewCell.swift */; };
 		2DD837182777A15F002AE07F /* ClosestLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD837172777A15F002AE07F /* ClosestLocationViewController.swift */; };
 		2DD8371C27785E7E002AE07F /* ServicesProviderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD8371B27785E7E002AE07F /* ServicesProviderCollectionViewCell.swift */; };
 		2DD8371E2778BA23002AE07F /* ServiceProviderDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD8371D2778BA23002AE07F /* ServiceProviderDetailsViewController.swift */; };
@@ -90,6 +92,8 @@
 		2DB60B782774B47D00A95983 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2DB60B7B2774B47D00A95983 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2DB60B7D2774B47D00A95983 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2DD171682784311200DC90B3 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
+		2DD1716A2784350F00DC90B3 /* OrderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCollectionViewCell.swift; sourceTree = "<group>"; };
 		2DD837172777A15F002AE07F /* ClosestLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosestLocationViewController.swift; sourceTree = "<group>"; };
 		2DD8371B27785E7E002AE07F /* ServicesProviderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesProviderCollectionViewCell.swift; sourceTree = "<group>"; };
 		2DD8371D2778BA23002AE07F /* ServiceProviderDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProviderDetailsViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +134,7 @@
 		2D37C2F12780822300A85207 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2DD171682784311200DC90B3 /* OrderViewController.swift */,
 				2DB60B732774B47800A95983 /* ViewController.swift */,
 				2DD837172777A15F002AE07F /* ClosestLocationViewController.swift */,
 				2DD8371D2778BA23002AE07F /* ServiceProviderDetailsViewController.swift */,
@@ -145,6 +150,7 @@
 			children = (
 				2D37C2F62780A93200A85207 /* ServicesCollectionViewCell.swift */,
 				2DB60B752774B47800A95983 /* Main.storyboard */,
+				2DD1716A2784350F00DC90B3 /* OrderCollectionViewCell.swift */,
 				2DD8371B27785E7E002AE07F /* ServicesProviderCollectionViewCell.swift */,
 			);
 			path = Views;
@@ -403,6 +409,8 @@
 				2DA52B372777610500710614 /* SignUpViewController.swift in Sources */,
 				2DB60B722774B47800A95983 /* SceneDelegate.swift in Sources */,
 				2DA52B3B277763F700710614 /* DatabaseHandelr.swift in Sources */,
+				2DD1716B2784350F00DC90B3 /* OrderCollectionViewCell.swift in Sources */,
+				2DD171692784311200DC90B3 /* OrderViewController.swift in Sources */,
 				2D37C2F4278082B600A85207 /* OrderDataModel.swift in Sources */,
 				2DA52B3F27776A0E00710614 /* MapViewController.swift in Sources */,
 				2DD837182777A15F002AE07F /* ClosestLocationViewController.swift in Sources */,

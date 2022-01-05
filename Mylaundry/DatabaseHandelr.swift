@@ -10,6 +10,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import CoreLocation
 
+
 protocol DatabaseDategate  {
     func readAllClosestServices(result: [closetProvider])
 }
@@ -19,50 +20,40 @@ protocol sendSpesificServices{
 }
 
 
-class DatabaseHandler{
+class DatabaseHandler {
     //connection with firestore
     let dbStore = Firestore.firestore()
     var logedUserId : String?
     var result = [closetProvider]()
     var delegate: DatabaseDategate!
     var sendSpesificServices: sendSpesificServices!
-    
     var userAdministrativeArea: String = ""
     var geoLat: Double?
     var geoLan: Double?
     var userLocation = CLLocation(latitude: 53.45678, longitude: 13.54455)
-    
+
     var myServices = [services]()
     
     
     // MARK: Authentication
     
     func createCustomer(newUser : customer){
-        //create the Customer
-        Auth.auth().createUser(withEmail: newUser.customerEmail, password: newUser.password) { result, error in
-            if(error == nil){
-                self.logedUserId  = result?.user.uid
-                print(self.logedUserId!)
-                //add the customer to the customer colllection
-                self.dbStore.collection("Customer").document(self.logedUserId!).setData([
-                    "userId": self.logedUserId!,
+            
+        //add the customer to the customer colllection
+        self.dbStore.collection("Customer").document(newUser.customerId).setData([
+                    "userId": newUser.customerId,
                     "customerName" : newUser.customerName,
-                    "geolat" : newUser.geolat,
-                    "geolng" : newUser.geolng,
-                    "administrativeArea" : newUser.administrativeArea,
-                    "country": newUser.country
-                    
+                    "customerMobile" : newUser.customerMobile,
+
                 ])
                 print("Customer Added sucsessfuly")
-            }
-            else{
-                print(error?.localizedDescription ?? "")
-            }
-        }
+         
     }
     
-    func customerLogin(loggedUser : customerLogin){
-        Auth.auth().signIn(withEmail: loggedUser.email, password:loggedUser.password) { result, error in
+    func customerLogin(loggedUser : customerLogin, completion: @escaping (String) -> Void) {
+        var status : String = ""
+        Auth.auth().signIn(withEmail: loggedUser.email, password:loggedUser.password)
+        { result, error in
             if(error == nil){
                 self.logedUserId = result?.user.uid
                 print("we go")
@@ -70,15 +61,36 @@ class DatabaseHandler{
                 UserDefaults.standard.set(true, forKey: "userLoggedIn")
                 UserDefaults.standard.set(result?.user.uid, forKey: "userId")
                 UserDefaults.standard.synchronize()
+               status = "sucsess"
+                completion(status)
             }
             else{
-                print(error?.localizedDescription ?? "")
+                if let error = error, let errorCode = AuthErrorCode(rawValue: error._code) {
+                    switch errorCode {
+                    case .invalidCredential:
+                        status = "incorrect password"
+                        completion(status)
+
+                    case .wrongPassword:
+                        status = "incorrect password"
+                        completion(status)
+
+                    case .userNotFound,
+                            .invalidEmail:
+                        status = " email address not found"
+                        completion(status)
+
+                    default:
+                        status = "something went wrong"
+                        completion(status)
+
+                    }
+                }
             }
-            
         }
     }
     
-    func updateCcustomerProfile(newProfile : customerProfile){
+    func updateCcustomerProfile(newProfile : customerProfile) {
         dbStore.collection("Customer")
             .whereField("userId", isEqualTo: newProfile.customerId)
             .getDocuments() { (querySnapshot, err) in
@@ -94,8 +106,26 @@ class DatabaseHandler{
         print("Profile Updated Sucsessfuly")
     }
     
+    func getCustomerLocation(completion: @escaping (String) -> Void){
+        //get customer location
+        var  administrativeArea1 : String!
+        
+        let id = UserDefaults.standard.string(forKey: "userId")
+        dbStore.collection("Customer").whereField("userId", isEqualTo: id!)
+            .getDocuments(){ (querySnapshot, err) in
+                if let document = querySnapshot!.documents.first{
+        
+                    administrativeArea1 =  document["administrativeArea"] as? String ?? ""
+                    completion(administrativeArea1)
+
+                }
+                
+            }
+        
+
+    }
+
     // MARK: Services
-    
     func ListClosestServiceProvider(){
         //get customer location
         let id = UserDefaults.standard.string(forKey: "userId")
@@ -146,7 +176,6 @@ class DatabaseHandler{
     //function to get all services for the spesific service provider  and fetch it to the model
     func getSpesificServices(serviceProviderId :String){
         
-        
         dbStore.collection("serviceProvider")
             .document(serviceProviderId)
             .collection("services")
@@ -163,34 +192,19 @@ class DatabaseHandler{
                             if let document = document, document.exists {
                                 s = document["servicePic"] as? String ?? ""
                                 b = document["serviceName"] as? String ?? ""
-                                let services = services(providerId: serviceProviderId, serviceId: serviceId, serviceName: b, servicePhoto: s, servicePrice: servicePrice)
-                                self.myServices.append(services)
                                 
                                 //object from the services model
-                                
+                                let services = services(providerId: serviceProviderId, serviceId: serviceId, serviceName: b, servicePhoto: s, servicePrice: servicePrice)
+                                self.myServices.append(services)
+                                                                
                             } else {
                                 print("Document does not exist")
                                 
                             }
                             self.sendSpesificServices.readProviderServices(myServices: self.myServices)
-
+                            
                         }
-//                        self.dbStore.collection("services").addSnapshotListener { [self] snapshot, error in
-//                            if let doc = snapshot?.documents{
-//                                for item in doc {
-//                                    if(item.documentID == serviceId){
-//                                        name = item["serviceName"] as? String ?? ""
-//                                        let services = services(providerId: serviceProviderId, serviceId: serviceId, serviceName: name, servicePhoto: "s", servicePrice: servicePrice)
-//                                        self.myServices.append(services)
-//                                        
-//                                    }
-//                                }
-//                                self.sendSpesificServices.readProviderServices(myServices: self.myServices)
-//                                
-//                                
-//                            }
-//                            
-//                        }
+
                     }
                     
                     
@@ -231,8 +245,62 @@ class DatabaseHandler{
     }
     
     
+    func readAllOrder(completion: @escaping ([order]) -> Void){
+        // crrunt logged in user
     
-    
-}
+        let id = UserDefaults.standard.string(forKey: "userId")
+        var orderArray = [order]()
 
+
+        dbStore.collection("order").whereField("customerId",isEqualTo: id!).addSnapshotListener { [self] snapshot, error in
+            if let doc = snapshot?.documents{
+                for item in doc {
+                    let date = item["orderDate"] as? String ?? ""
+                    let status = item["orderStatus"] as? String ?? ""
+                    let serviceProvider = item["serviceProvider"] as? String ?? ""
+
+                    var docRef = self.dbStore.collection("serviceProvider").document(serviceProvider)
+                    docRef.getDocument { (document, error) in
+                        if let document = document, document.exists {
+                            let name = document["companyName"] as? String ?? ""
+                            //object from order model
+                            let order = order(orderID: item.documentID, orderDate: date, orderStatus: status, serviceProviderId: serviceProvider, coustomerId: id!)
+                            orderArray.append(order)
+                            completion(orderArray)
+                        }
+                    }
+                
+                }
+            }
+        }
+    }
+    func cancelOrder(orderId : String){
+        
+        dbStore.collection("order").document(orderId).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+        
+        
+    }
+    func doSomeDbOperation(completion: @escaping (String) -> Void) {
+        
+        var orderArray = [String]()
+        
+        dbStore.collection("order").getDocuments { snapshot, error in
+            
+            for doc in snapshot!.documents {
+                let value = doc.data() as! [String: String]
+                let status = value["orderStatus"] as? String
+                guard let status = status else { return }
+                orderArray.append(status)
+            }
+        }
+        // We have the array to sent back
+        completion(orderArray.first!)
+    }
+}
 

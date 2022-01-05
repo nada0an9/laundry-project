@@ -16,11 +16,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         UserDefaults.standard.bool(forKey: "userLoggedIn")
         let id = UserDefaults.standard.string(forKey: "userId")
         print("my id \(id!)")
-        
         let myProfile = customerProfile(
                     customerId: id!,
-                    geolat: geolat!,
-                    geolng: geolng!,
+                    geolat: Double(geolat!),
+                    geolng: Double(geolat!),
                     administrativeArea: administrativeArea!,
                     country: country!)
         
@@ -42,6 +41,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         locationManager = CLLocationManager()
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -49,6 +49,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             if CLLocationManager.locationServicesEnabled(){
                 locationManager.startUpdatingLocation()
             }
+        canMove = !canMove
+
         // Do any additional setup after loading the view.
     }
     
@@ -78,8 +80,29 @@ func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:
       
         }
     }
+    addMarkerPin(for: locations.last?.coordinate)
+
 
 }
+    func addMarkerPin(for location: CLLocationCoordinate2D?) {
+
+        //MARK: Set some random location if its nil - just for demo
+        var coordinate = location
+        if (coordinate == nil) {
+            coordinate = CLLocationCoordinate2D(latitude: +37.33756603, longitude: -122.04120235)
+        }
+        
+        //MARK: Add a map pin
+        let mapPin = MKPointAnnotation()
+        mapPin.coordinate = coordinate!
+        customerMap.addAnnotation(mapPin)
+        
+        //MARK: Zoom to the selected pin
+        if (canMove) {
+            let region = MKCoordinateRegion(center: coordinate!, span: MKCoordinateSpan(latitudeDelta: 0, longitudeDelta: 0))
+            customerMap.setRegion(region, animated: true)
+        }
+    }
 func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
     print("Error \(error)")
 }

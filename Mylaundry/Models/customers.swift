@@ -11,19 +11,12 @@ import CoreLocation
 struct customer{
     var customerId : String
     var customerName : String
-    var customerEmail : String
     var customerMobile : String
-    var geolat : Float
-    var geolng : Float
-    var administrativeArea : String
-    var country : String
-    var password : String
-
 }
 struct customerProfile{
     var customerId : String
-    var geolat : Float
-    var geolng : Float
+    var geolat : Double
+    var geolng : Double
     var administrativeArea : String
     var country : String
 }
