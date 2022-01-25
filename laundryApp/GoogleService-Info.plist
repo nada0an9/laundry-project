@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>576156752405-s3igeqja4ghnrop81f72u10cf3fir3hd.apps.googleusercontent.com</string>
+	<string>321934467105-s99uqqru1ur7dqh478rjdretf2nb30vh.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.576156752405-s3igeqja4ghnrop81f72u10cf3fir3hd</string>
+	<string>com.googleusercontent.apps.321934467105-s99uqqru1ur7dqh478rjdretf2nb30vh</string>
 	<key>API_KEY</key>
-	<string>AIzaSyC70CRJn6OzhWugMaWLHc2K5PYZd5qpP_E</string>
+	<string>AIzaSyDfyATtIBwAgAA2Aik4Vrow4iEujYOrNUE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>576156752405</string>
+	<string>321934467105</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>ii.laundryApp</string>
 	<key>PROJECT_ID</key>
-	<string>laundry-project-d8307</string>
+	<string>maqsool</string>
 	<key>STORAGE_BUCKET</key>
-	<string>laundry-project-d8307.appspot.com</string>
+	<string>maqsool.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:576156752405:ios:63ff33f139c72dc6268c1c</string>
+	<string>1:321934467105:ios:24cca49525a50785464360</string>
 </dict>
 </plist>

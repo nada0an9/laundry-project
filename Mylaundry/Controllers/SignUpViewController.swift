@@ -56,6 +56,7 @@ class SignUpViewController: UIViewController {
                             
                             
                         }))
+                        
                         self.present(alert, animated: true, completion: {() -> Void in })
                     }
                 }

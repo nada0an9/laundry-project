@@ -1,9 +1,5 @@
-//
 //  DatabaseHandelr.swift
-//  Mylaundry
-//
 //  Created by Nada Alansari on 21/05/1443 AH.
-//
 
 import Foundation
 import FirebaseAuth
@@ -11,43 +7,27 @@ import FirebaseFirestore
 import CoreLocation
 
 
-protocol DatabaseDategate  {
-    func readAllClosestServices(result: [closetProvider])
-}
-protocol sendSpesificServices{
-    func readProviderServices(myServices: [services])
-    
-}
-
-
 class DatabaseHandler {
     //connection with firestore
     let dbStore = Firestore.firestore()
     var logedUserId : String?
     var result = [closetProvider]()
-    var delegate: DatabaseDategate!
-    var sendSpesificServices: sendSpesificServices!
     var userAdministrativeArea: String = ""
     var geoLat: Double?
     var geoLan: Double?
     var userLocation = CLLocation(latitude: 53.45678, longitude: 13.54455)
-
     var myServices = [services]()
     
     
     // MARK: Authentication
-    
     func createCustomer(newUser : customer){
-            
         //add the customer to the customer colllection
         self.dbStore.collection("Customer").document(newUser.customerId).setData([
-                    "userId": newUser.customerId,
-                    "customerName" : newUser.customerName,
-                    "customerMobile" : newUser.customerMobile,
-
-                ])
-                print("Customer Added sucsessfuly")
-         
+            "userId": newUser.customerId,
+            "customerName" : newUser.customerName,
+            "customerMobile" : newUser.customerMobile,
+        ])
+        print("Customer Added sucsessfuly")
     }
     
     func customerLogin(loggedUser : customerLogin, completion: @escaping (String) -> Void) {
@@ -61,7 +41,7 @@ class DatabaseHandler {
                 UserDefaults.standard.set(true, forKey: "userLoggedIn")
                 UserDefaults.standard.set(result?.user.uid, forKey: "userId")
                 UserDefaults.standard.synchronize()
-               status = "sucsess"
+                status = "sucsess"
                 completion(status)
             }
             else{
@@ -70,20 +50,20 @@ class DatabaseHandler {
                     case .invalidCredential:
                         status = "incorrect password"
                         completion(status)
-
+                        
                     case .wrongPassword:
                         status = "incorrect password"
                         completion(status)
-
+                        
                     case .userNotFound,
                             .invalidEmail:
                         status = " email address not found"
                         completion(status)
-
+                        
                     default:
                         status = "something went wrong"
                         completion(status)
-
+                        
                     }
                 }
             }
@@ -109,27 +89,22 @@ class DatabaseHandler {
     func getCustomerLocation(completion: @escaping (String) -> Void){
         //get customer location
         var  administrativeArea1 : String!
-        
         let id = UserDefaults.standard.string(forKey: "userId")
         dbStore.collection("Customer").whereField("userId", isEqualTo: id!)
             .getDocuments(){ (querySnapshot, err) in
                 if let document = querySnapshot!.documents.first{
-        
                     administrativeArea1 =  document["administrativeArea"] as? String ?? ""
                     completion(administrativeArea1)
-
                 }
-                
             }
-        
-
     }
-
+    
     // MARK: Services
-    func ListClosestServiceProvider(){
+    func ListClosestServiceProvider(completion: @escaping ([closetProvider]) -> Void){
         //get customer location
+        var closetProviderResult  = [closetProvider]()
         let id = UserDefaults.standard.string(forKey: "userId")
-        dbStore.collection("Customer").whereField("userId", isEqualTo: id!)
+        dbStore.collection("Customer").whereField("userId", isEqualTo: Auth.auth().currentUser?.uid)
             .getDocuments(){ (querySnapshot, err) in
                 if let document = querySnapshot!.documents.first{
                     let administrativeArea =  document["administrativeArea"] as? String ?? ""
@@ -158,24 +133,23 @@ class DatabaseHandler {
                                 //object from the closetProvider model
                                 let closetProvider = closetProvider(id:id, name: name, coord: coord, distance: distance)
                                 
-                                self.result.append(closetProvider)
+                                closetProviderResult.append(closetProvider)
                                 
                                 
                             }
                             
-                            delegate.readAllClosestServices(result: self.result.sorted(by: { $0.coord.distance(from: self.userLocation) < $1.coord.distance(from: self.userLocation) })
-                                                            
-                            )
+                            completion(closetProviderResult.sorted(by: { $0.coord.distance(from: self.userLocation) < $1.coord.distance(from: self.userLocation) }))
+                            
+                            
                         }
                     }
                 }
             }
-        
     }
     
     //function to get all services for the spesific service provider  and fetch it to the model
-    func getSpesificServices(serviceProviderId :String){
-        
+    func getSpesificServices(serviceProviderId :String, completion: @escaping ([services]) -> Void ){
+        var servicesArray = [services]()
         dbStore.collection("serviceProvider")
             .document(serviceProviderId)
             .collection("services")
@@ -184,27 +158,25 @@ class DatabaseHandler {
                     for item in doc {
                         let serviceId = item["servicesID"] as? String ?? ""
                         let servicePrice = item["price"] as? String ?? ""
-                        var b = ""
-                        var s = ""
-                        
-                        var docRef = self.dbStore.collection("services").document(serviceId)
+                        var serviceName = ""
+                        var servicePic = ""
+                        let docRef = self.dbStore.collection("services").document(serviceId)
                         docRef.getDocument { (document, error) in
                             if let document = document, document.exists {
-                                s = document["servicePic"] as? String ?? ""
-                                b = document["serviceName"] as? String ?? ""
-                                
+                                servicePic = document["servicePic"] as? String ?? ""
+                                serviceName = document["serviceName"] as? String ?? ""
                                 //object from the services model
-                                let services = services(providerId: serviceProviderId, serviceId: serviceId, serviceName: b, servicePhoto: s, servicePrice: servicePrice)
-                                self.myServices.append(services)
-                                                                
+                                let services = services(providerId: serviceProviderId, serviceId: serviceId, serviceName: serviceName, servicePhoto: servicePic, servicePrice: servicePrice)
+                                servicesArray.append(services)
+                                completion(servicesArray)
+                                
                             } else {
                                 print("Document does not exist")
-                                
                             }
-                            self.sendSpesificServices.readProviderServices(myServices: self.myServices)
+                            
                             
                         }
-
+                        
                     }
                     
                     
@@ -233,10 +205,11 @@ class DatabaseHandler {
         
         for item in newOrder.arrOrderServices{
             //add order proudect
-            dbStore.collection("order").document(id).collection("orderService").addDocument(data: [
+            dbStore.collection("order").document(id).collection("orderService").document(item.serviceID).setData([
                 "qty" : item.servicesQty,
-                "serviceId": item.serviceID
-                
+                "serviceId": item.serviceID,
+                "serviceName": item.servicesName,//name
+                "servicePic ": item.servicesPic//pic
             ])
             
         }
@@ -244,36 +217,94 @@ class DatabaseHandler {
         
     }
     
-    
     func readAllOrder(completion: @escaping ([order]) -> Void){
         // crrunt logged in user
-    
         let id = UserDefaults.standard.string(forKey: "userId")
         var orderArray = [order]()
-
-
-        dbStore.collection("order").whereField("customerId",isEqualTo: id!).addSnapshotListener { [self] snapshot, error in
+        dbStore.collection("order").whereField("customerId",isEqualTo: id!).addSnapshotListener { [] snapshot, error in
             if let doc = snapshot?.documents{
                 for item in doc {
                     let date = item["orderDate"] as? String ?? ""
                     let status = item["orderStatus"] as? String ?? ""
                     let serviceProvider = item["serviceProvider"] as? String ?? ""
-
-                    var docRef = self.dbStore.collection("serviceProvider").document(serviceProvider)
-                    docRef.getDocument { (document, error) in
-                        if let document = document, document.exists {
-                            let name = document["companyName"] as? String ?? ""
-                            //object from order model
-                            let order = order(orderID: item.documentID, orderDate: date, orderStatus: status, serviceProviderId: serviceProvider, coustomerId: id!)
-                            orderArray.append(order)
-                            completion(orderArray)
-                        }
-                    }
-                
+                    //object from order model
+                    let order = order(orderID: item.documentID, orderDate: date, orderStatus: status, serviceProviderId: serviceProvider, coustomerId: id!)
+                    orderArray.append(order)
+                    completion(orderArray)
+                    
                 }
             }
         }
     }
+    
+    
+    func orderDetails(orderId : String ,completion: @escaping (order, [orderServices2]) -> Void ){
+        var orderServices = [orderServices2]()
+        
+        let docRef = self.dbStore.collection("order").document(orderId)
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let date = document["orderDate"] as? String ?? ""
+                let status = document["orderStatus"] as? String ?? ""
+                let serviceProvider = document["serviceProviderId"] as? String ?? ""
+                let coustomerId = document["customerId"] as? String ?? ""
+                
+                // read provider info
+                let docRef = self.dbStore.collection("serviceProvider").document(serviceProvider)
+                docRef.getDocument { (document, error) in
+                    if let document = document, document.exists {
+                        let name = document["companyName"] as? String ?? ""
+                        let order = order(orderID: orderId, orderDate: date, orderStatus: status, serviceProviderId: name, coustomerId: coustomerId)
+                        
+                        //read order services
+                        self.dbStore.collection("order").document(orderId).collection("orderService").addSnapshotListener
+                        { [] snapshot, error in
+                            if let doc = snapshot?.documents{
+                                for item in doc {
+                                    let qty = item["qty"] as? String ?? ""
+                                    let serviceId = item["serviceId"] as? String ?? ""
+                                    let serviceName = item["serviceName"] as? String ?? ""
+                                    let servicePic  = item["servicePic"] as? String ?? ""
+                                    let servicesPrice  = item["servicePic"] as? String ?? ""
+                                    
+                                    // read service price
+                                    
+                                    print("the servise provider id \(serviceProvider)")
+                                    // object from order service model
+                                    let orderService = orderServices2(serviceID: serviceId, servicesName: serviceName, servicesPic: servicePic, servicesQty: qty, servicesPrice: servicesPrice)
+                                    orderServices.append(orderService)
+                                    
+                                    
+                                    
+                                }
+                                print("orderServices")
+                                print(orderServices )
+                                completion(order, orderServices)
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    func findPrice(serviceId: String , ProviderId : String, completion: @escaping (String) -> Void){
+        var servicePrice = ""
+        dbStore.collection("serviceProvider").document(ProviderId).collection("services").whereField("serviceId", isEqualTo: serviceId).addSnapshotListener { [] snapshot, error in
+            if let doc = snapshot?.documents{
+                for item in doc {
+                    let price = item["price"] as? String ?? ""
+                    servicePrice = price
+                    completion(price)
+                    
+                }
+            }
+        }
+    }
+    
+    
     func cancelOrder(orderId : String){
         
         dbStore.collection("order").document(orderId).delete() { err in
@@ -283,24 +314,14 @@ class DatabaseHandler {
                 print("Document successfully removed!")
             }
         }
-        
-        
     }
-    func doSomeDbOperation(completion: @escaping (String) -> Void) {
+    
+    func updateOrder(updatedOrderID : String , qty : String, serviseID : String){
+        var dicRef = dbStore.collection("order").document(updatedOrderID).collection("orderService").document(serviseID).updateData(["qty" : qty])
         
-        var orderArray = [String]()
-        
-        dbStore.collection("order").getDocuments { snapshot, error in
-            
-            for doc in snapshot!.documents {
-                let value = doc.data() as! [String: String]
-                let status = value["orderStatus"] as? String
-                guard let status = status else { return }
-                orderArray.append(status)
-            }
-        }
-        // We have the array to sent back
-        completion(orderArray.first!)
+        print("Updated Sucsessfuly")
     }
+    
+
 }
 

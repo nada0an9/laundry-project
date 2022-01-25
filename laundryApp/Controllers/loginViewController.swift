@@ -20,6 +20,7 @@ class loginViewController: UIViewController {
         db.login(loggedUser: logedUser)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "homeId")
+        vc.modalPresentationStyle = .overFullScreen
         self.present(vc, animated: true, completion: nil)
         
     }

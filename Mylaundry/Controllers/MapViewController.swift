@@ -49,9 +49,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             if CLLocationManager.locationServicesEnabled(){
                 locationManager.startUpdatingLocation()
             }
-        canMove = !canMove
-
-        // Do any additional setup after loading the view.
     }
     
     //MARK: - location delegate methods
