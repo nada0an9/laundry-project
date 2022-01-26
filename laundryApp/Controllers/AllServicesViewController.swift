@@ -9,7 +9,6 @@ import UIKit
 
 class AllServicesViewController: UIViewController ,DatabaseDategate,UICollectionViewDataSource, UICollectionViewDelegate{
     func readMyservices(myServices: [services]) {
-        print("now we come my servises")
         print(myServices)
     }
     
@@ -18,7 +17,6 @@ class AllServicesViewController: UIViewController ,DatabaseDategate,UICollection
     var allServices = [services]()
     
     func readAllservices(result: [services]) {
-        print("now we come")
         print(result)
         let s = result
         print("s")

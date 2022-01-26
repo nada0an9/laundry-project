@@ -19,7 +19,7 @@ class OrderDetailsViewController: UIViewController ,UICollectionViewDataSource, 
         cell.layer.cornerRadius = 12;
         cell.name.text =  orderService[indexPath.row].servicesName
         cell.qty.text = orderService[indexPath.row].servicesQty
-        
+        cell.price.text = orderService[indexPath.row].servicesPrice
         return cell
     }
     
@@ -42,7 +42,6 @@ class OrderDetailsViewController: UIViewController ,UICollectionViewDataSource, 
             DispatchQueue.main.async {
                 self.orderService = orderServices
                 self.orderProudectCollection.reloadData()
-                
                 self.name.text = order.customer.customerName
                 self.mobile.text = order.customer.customerMobile
                 self.orderDate.text = order.orderDate

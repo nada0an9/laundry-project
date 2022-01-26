@@ -267,7 +267,7 @@ class DatabaseHandler {
                                     let serviceId = item["serviceId"] as? String ?? ""
                                     let serviceName = item["serviceName"] as? String ?? ""
                                     let servicePic  = item["servicePic"] as? String ?? ""
-                                    let servicesPrice  = item["servicePic"] as? String ?? ""
+                                    let servicesPrice  = item["servicePrice"] as? String ?? ""
                                     
                                     // read service price
                                     

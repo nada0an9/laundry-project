@@ -20,7 +20,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
     @IBAction func updateProfile(_ sender: Any) {
         
-        print("i pres ----------")
          let db = DatabaseHandler()
          UserDefaults.standard.bool(forKey: "userLoggedIn")  // true
          let id = UserDefaults.standard.string(forKey: "userId")
