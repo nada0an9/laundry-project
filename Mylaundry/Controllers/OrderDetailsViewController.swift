@@ -12,31 +12,33 @@ class OrderDetailsViewController: UIViewController{
     @IBOutlet weak var collection: UICollectionView!
     @IBAction func cancel(_ sender: Any) {
         
-//
-//        db.orderDetails(orderId: orderId) { order, orderServices in {
-//            if  (order.orderStatus == "completed" || order.orderStatus == "in collect" ){
-//
-//                let alert = UIAlertController(title: "My Title", message: "This is my message.", preferredStyle: UIAlertController.Style.alert)
-//
-//                // add an action (button)
-//                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-//
-//                // show the alert
-//                self.present(alert, animated: true, completion: nil)
-//            }
-//            else{
-//
-//                self.db.cancelOrder(orderId: self.orderId)
-//                  self.navigationController?.popViewController(animated: trcategoryImageue)
-//
-//            }
-//
-//        }
-//
-//
-//
-//    }
-    }
+
+        db.orderDetails(orderId: orderId) { order, orderServices2 in
+            if  (order.orderStatus == "completed" || order.orderStatus == "in collect" ){
+
+                let alert = UIAlertController(title: "Alert", message: "You can't cancel this order ", preferredStyle: UIAlertController.Style.alert)
+
+                // add an action (button)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+                // show the alert
+                self.present(alert, animated: true, completion: nil)
+            }
+            else{
+
+                self.db.cancelOrder(orderId: self.orderId)
+                  self.navigationController?.popViewController(animated: true)
+
+            }
+        }
+   
+
+        }
+
+
+
+    
+    
     var db = DatabaseHandler()
 
     
@@ -58,7 +60,7 @@ class OrderDetailsViewController: UIViewController{
             self.providerName.text = order.serviceProviderId
             self.orderDate.text = order.orderDate
             self.orderServices = orderServices
-            print("self.orderServices")
+            print("self.orderServices ------------------------------------")
             print(self.orderServices)
             DispatchQueue.main.async {
                 self.collection.reloadData()
@@ -84,17 +86,11 @@ extension OrderDetailsViewController : UICollectionViewDelegate, UICollectionVie
         cell.id = orderServices[indexPath.row].serviceID
         cell.price.text = orderServices[indexPath.row].servicesPrice
         cell.obj =
-                    {
-               
-                              
+                    {                              
                             DispatchQueue.main.async {
                             self.db.updateOrder(updatedOrderID: self.orderId, qty:cell.qty.text!, serviseID: self.orderServices[indexPath.row].serviceID)
                                 self.collection.reloadData()
                             }
-                  
-                        //when the button is tapped here
-                        //we have to update just the qty
-                        print("updated")
                 }
         return cell
 

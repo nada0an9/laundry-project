@@ -28,7 +28,6 @@ class AllOrdersViewController: UIViewController ,UICollectionViewDataSource, UIC
         let cell = orderLists.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath as IndexPath) as! CollectionViewCell
         
         cell.layer.cornerRadius = 12;
-        
         cell.name.text =  orderArray[indexPath.row].customer.customerName
         cell.date.text = orderArray[indexPath.row].orderDate
         cell.mobile.text = orderArray[indexPath.row].customer.customerMobile
@@ -70,9 +69,7 @@ class AllOrdersViewController: UIViewController ,UICollectionViewDataSource, UIC
                     self.orderLists.reloadData()
                 }
             }
-            
-            
-            
+                        
         } else {
             
             

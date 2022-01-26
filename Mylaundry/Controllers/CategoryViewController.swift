@@ -19,7 +19,6 @@ class CategoryViewController: UIViewController , UICollectionViewDelegate, UICol
         cell.categoryImage.layer.cornerRadius = 16
         cell.categoryImage.clipsToBounds = true
         cell.categoryImage.image = categoryImage[indexPath.row]
-
         let layer = cell.layer
         layer.shadowOffset = CGSize(width: 1, height: 1)
         layer.shadowRadius = 6

@@ -25,7 +25,6 @@ class ServiceProviderDetailsViewController: UIViewController, UICollectionViewDa
         cell.price.text = result[indexPath.row].servicePrice
         cell.price.text!  += " RS" 
         cell.qty.text = result[indexPath.row].servicePrice
-        
         var image = UIImage(named: "Screen Shot 1443-06-21 at 9.13.36 AM.png")
         cell.serviseImage.layer.cornerRadius = 8.0
         cell.serviseImage.clipsToBounds = false
@@ -61,7 +60,16 @@ class ServiceProviderDetailsViewController: UIViewController, UICollectionViewDa
     }
     
     @IBAction func confirmOrder(_ sender: Any) {
-        
+        if  (self.orderdSservicesArray.count == 0){
+
+            let alert = UIAlertController(title: "Alert", message: "Your Cart Is Empty ", preferredStyle: UIAlertController.Style.alert)
+
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+        }
         let today = Date()
         let formatter3 = DateFormatter()
         formatter3.dateFormat = "HH:mm E, d MMM y"
@@ -79,7 +87,6 @@ class ServiceProviderDetailsViewController: UIViewController, UICollectionViewDa
         orderList.delegate = self
         
         let db = DatabaseHandler()
-        
         db.getSpesificServices(serviceProviderId: s) { services in
             self.result = services
             DispatchQueue.main.async {

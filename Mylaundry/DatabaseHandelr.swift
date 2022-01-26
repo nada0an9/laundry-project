@@ -209,7 +209,9 @@ class DatabaseHandler {
                 "qty" : item.servicesQty,
                 "serviceId": item.serviceID,
                 "serviceName": item.servicesName,//name
-                "servicePic ": item.servicesPic//pic
+                "servicePic ": item.servicesPic,//pic
+                "servicePrice ": item.servicesPrice//price
+
             ])
             
         }
