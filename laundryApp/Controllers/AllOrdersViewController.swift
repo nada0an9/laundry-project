@@ -54,7 +54,7 @@ class AllOrdersViewController: UIViewController ,UICollectionViewDataSource, UIC
             let db = DatabaseHandler()
             db.readAllOrder { orders in
                 DispatchQueue.main.async {
-                    self.orderArray = orders.filter { $0.orderStatus == "new order" }
+                    self.orderArray = orders.filter { $0.orderStatus == "New Order" }
                     print(self.orderArray)
                     self.orderLists.reloadData()
                 }
@@ -96,7 +96,7 @@ class AllOrdersViewController: UIViewController ,UICollectionViewDataSource, UIC
         let db = DatabaseHandler()
         db.readAllOrder { orders in
             DispatchQueue.main.async {
-                self.orderArray = orders.filter { $0.orderStatus == "new order" }
+                self.orderArray = orders.filter { $0.orderStatus == "New Order" }
                 print(self.orderArray)
                 self.orderLists.reloadData()
             }

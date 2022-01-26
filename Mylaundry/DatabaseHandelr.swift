@@ -211,7 +211,6 @@ class DatabaseHandler {
                 "serviceName": item.servicesName,//name
                 "servicePic ": item.servicesPic,//pic
                 "servicePrice ": item.servicesPrice//price
-
             ])
             
         }
@@ -232,6 +231,11 @@ class DatabaseHandler {
                     //object from order model
                     let order = order(orderID: item.documentID, orderDate: date, orderStatus: status, serviceProviderId: serviceProvider, coustomerId: id!)
                     orderArray.append(order)
+                    //sort by date
+                    var dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "HH:mm E, d MMM y"
+                    orderArray.sort(){dateFormatter.date(from: $0.orderDate)! > dateFormatter.date(from: $1.orderDate)!}
+                    
                     completion(orderArray)
                     
                 }

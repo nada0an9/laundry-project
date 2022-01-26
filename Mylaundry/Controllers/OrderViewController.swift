@@ -32,7 +32,7 @@ class OrderViewController: UIViewController, UICollectionViewDataSource, UIColle
         cell.layer.cornerRadius = 12
         cell.orderId.text! +=  orderArray[indexPath.row].orderID
         cell.status.text =  orderArray[indexPath.row].orderStatus
-        if(orderArray[indexPath.row].orderStatus == "new order"){
+        if(orderArray[indexPath.row].orderStatus == "New Order"){
             cell.orderImage.image = UIImage(named: "image-2.png")
         }
         else if(orderArray[indexPath.row].orderStatus == "completed"){
@@ -60,12 +60,17 @@ class OrderViewController: UIViewController, UICollectionViewDataSource, UIColle
         let db = DatabaseHandler()
         db.readAllOrder { orderArray in
             print("my orders")
+            
+          
             self.orderArray = orderArray
+
             //reload the data
             DispatchQueue.main.async {
                 self.orderCollection.reloadData()
             }
         }
+        
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         orderCollection.dataSource = self

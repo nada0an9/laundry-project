@@ -12,31 +12,32 @@ class CategoryViewController: UIViewController , UICollectionViewDelegate, UICol
         categoryImage.count
     }
     
+    @IBOutlet weak var categoryCellView: UIView!
+
+    @IBOutlet weak var categoryCollection: UICollectionView!
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionViewCell", for: indexPath as IndexPath) as! CategoryCollectionViewCell
-        cell.layer.cornerRadius = 12
         
-        cell.categoryImage.layer.cornerRadius = 16
-        cell.categoryImage.clipsToBounds = true
-        cell.categoryImage.image = categoryImage[indexPath.row]
-        let layer = cell.layer
-        layer.shadowOffset = CGSize(width: 1, height: 1)
-        layer.shadowRadius = 6
-        layer.shadowColor = UIColor.lightGray.cgColor
-        layer.shadowOpacity = 0.5
-        layer.frame = cell.frame
+
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath as IndexPath) as! CategoryCollectionViewCell
+        cell.catergoryImage.clipsToBounds = false
+        cell.catergoryImage.image = categoryImage[indexPath.row]
         return cell
+        
+            
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         performSegue(withIdentifier: "", sender: self)
     }
-    @IBOutlet weak var categoryCollection: UICollectionView!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         categoryCollection.dataSource = self
         categoryCollection.delegate = self
+//        settingCell()
+  
     }
     
     
