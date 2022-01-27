@@ -15,10 +15,10 @@ class ClosestLocationViewController: UIViewController ,UICollectionViewDataSourc
     var ServicesId : String = ""
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "show_det"
+        if segue.identifier == "goToCategory"
         {
-            let detailsVC = segue.destination as! ServiceProviderDetailsViewController
-            detailsVC.s = self.ServicesId
+            let detailsVC = segue.destination as! CategoryViewController
+            detailsVC.id = self.ServicesId
         }
         
     }
@@ -41,14 +41,12 @@ class ClosestLocationViewController: UIViewController ,UICollectionViewDataSourc
         
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        ServicesId = closetLocation[indexPath.row].id
-        performSegue(withIdentifier: "show_det", sender: self)
+                ServicesId = closetLocation[indexPath.row].id
+        performSegue(withIdentifier: "goToCategory", sender: self)
         
     }
     
     @IBOutlet weak var locationLable: UILabel!
-    
     @IBOutlet weak var closetsLocationsCollection: UICollectionView!
  
     @objc func tapFunction(sender:UITapGestureRecognizer) {
@@ -93,6 +91,10 @@ class ClosestLocationViewController: UIViewController ,UICollectionViewDataSourc
         }
         
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
+
     }
     
     

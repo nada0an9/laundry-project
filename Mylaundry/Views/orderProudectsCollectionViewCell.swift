@@ -10,14 +10,16 @@ import UIKit
 class orderProudectsCollectionViewCell: UICollectionViewCell {
     var obj : (() -> Void)? = nil
 
-    @IBAction func btn(_ sender: Any) {
+    @IBAction func update(_ sender: Any) {
         if let btnAction = self.obj
               {
                   btnAction()
               }
     }
-    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var qty: UILabel!
+    @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var price: UILabel!
-    @IBOutlet weak var qty: UITextField!
-    var id = ""
+    @IBOutlet weak var name: UILabel!
+    
+    
 }

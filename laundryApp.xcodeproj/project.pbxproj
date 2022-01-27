@@ -64,10 +64,9 @@
 		2DD8371E2778BA23002AE07F /* ServiceProviderDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD8371D2778BA23002AE07F /* ServiceProviderDetailsViewController.swift */; };
 		2DD837202778C11E002AE07F /* ServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD8371F2778C11E002AE07F /* ServiceProvider.swift */; };
 		2DDE946B2786E1C3008E40D5 /* OrderDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DDE946A2786E1C3008E40D5 /* OrderDetailsViewController.swift */; };
-		2DFF95B927A1AB72007B7E40 /* collectionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFF95B827A1AB72007B7E40 /* collectionCategory.swift */; };
 		2DFF95BB27A1ABA5007B7E40 /* Sitting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFF95BA27A1ABA5007B7E40 /* Sitting.swift */; };
 		2DFF95BD27A1ACE4007B7E40 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFF95BC27A1ACE4007B7E40 /* CategoryView.swift */; };
-		2DFF95BF27A1B2D7007B7E40 /* cCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFF95BE27A1B2D7007B7E40 /* cCollectionViewCell.swift */; };
+		2DFF95CB27A27160007B7E40 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 2DFF95CA27A27160007B7E40 /* Algorithms */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,10 +119,8 @@
 		2DD8371D2778BA23002AE07F /* ServiceProviderDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProviderDetailsViewController.swift; sourceTree = "<group>"; };
 		2DD8371F2778C11E002AE07F /* ServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvider.swift; sourceTree = "<group>"; };
 		2DDE946A2786E1C3008E40D5 /* OrderDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailsViewController.swift; sourceTree = "<group>"; };
-		2DFF95B827A1AB72007B7E40 /* collectionCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = collectionCategory.swift; sourceTree = "<group>"; };
 		2DFF95BA27A1ABA5007B7E40 /* Sitting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sitting.swift; sourceTree = "<group>"; };
 		2DFF95BC27A1ACE4007B7E40 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
-		2DFF95BE27A1B2D7007B7E40 /* cCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DFF95CB27A27160007B7E40 /* Algorithms in Frameworks */,
 				2D9AD7AF276DDA7800BB4DD2 /* FirebaseDatabase in Frameworks */,
 				2D9AD7A7276DDA7800BB4DD2 /* FirebaseAnalytics in Frameworks */,
 				2D9AD7A9276DDA7800BB4DD2 /* FirebaseAnalyticsSwift-Beta in Frameworks */,
@@ -178,7 +176,6 @@
 			children = (
 				2D37C2F62780A93200A85207 /* ServicesCollectionViewCell.swift */,
 				2DB60B752774B47800A95983 /* Main.storyboard */,
-				2DFF95B827A1AB72007B7E40 /* collectionCategory.swift */,
 				2D4F5061279FFA8400C8E4ED /* HomeViewController.swift */,
 				2D3CE5EC279DB27E00A543A3 /* CategoryCollectionViewCell.swift */,
 				2D3946F5279AC186004A74F6 /* orderProudectsCollectionViewCell.swift */,
@@ -204,7 +201,6 @@
 		2D9AD77A276B5B7700BB4DD2 = {
 			isa = PBXGroup;
 			children = (
-				2DFF95BE27A1B2D7007B7E40 /* cCollectionViewCell.swift */,
 				2D9AD785276B5B7800BB4DD2 /* laundryApp */,
 				2DB60B6E2774B47800A95983 /* Mylaundry */,
 				2D9AD784276B5B7800BB4DD2 /* Products */,
@@ -319,6 +315,7 @@
 				2D9AD7AC276DDA7800BB4DD2 /* FirebaseCrashlytics */,
 				2D9AD7AE276DDA7800BB4DD2 /* FirebaseDatabase */,
 				2D9AD7B0276DDA7800BB4DD2 /* FirebaseFirestore */,
+				2DFF95CA27A27160007B7E40 /* Algorithms */,
 			);
 			productName = laundryApp;
 			productReference = 2D9AD783276B5B7800BB4DD2 /* laundryApp.app */;
@@ -378,6 +375,7 @@
 			mainGroup = 2D9AD77A276B5B7700BB4DD2;
 			packageReferences = (
 				2D9AD7A5276DDA7800BB4DD2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				2DFF95C927A2715F007B7E40 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
 			);
 			productRefGroup = 2D9AD784276B5B7800BB4DD2 /* Products */;
 			projectDirPath = "";
@@ -460,8 +458,6 @@
 				2D3946F6279AC186004A74F6 /* orderProudectsCollectionViewCell.swift in Sources */,
 				2DD1716B2784350F00DC90B3 /* OrderCollectionViewCell.swift in Sources */,
 				2DD171692784311200DC90B3 /* OrderViewController.swift in Sources */,
-				2DFF95B927A1AB72007B7E40 /* collectionCategory.swift in Sources */,
-				2DFF95BF27A1B2D7007B7E40 /* cCollectionViewCell.swift in Sources */,
 				2D37C2F4278082B600A85207 /* OrderDataModel.swift in Sources */,
 				2DDE946B2786E1C3008E40D5 /* OrderDetailsViewController.swift in Sources */,
 				2DA52B3F27776A0E00710614 /* MapViewController.swift in Sources */,
@@ -790,6 +786,14 @@
 				kind = branch;
 			};
 		};
+		2DFF95C927A2715F007B7E40 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -852,6 +856,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2D9AD7A5276DDA7800BB4DD2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
+		};
+		2DFF95CA27A27160007B7E40 /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2DFF95C927A2715F007B7E40 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

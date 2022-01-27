@@ -12,7 +12,6 @@ class AllServicesViewController: UIViewController ,DatabaseDategate,UICollection
         print(myServices)
     }
     
-    
     @IBOutlet weak var servicesCollection: UICollectionView!
     var allServices = [services]()
     

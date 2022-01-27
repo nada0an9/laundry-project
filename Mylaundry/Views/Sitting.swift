@@ -10,10 +10,10 @@ import UIKit
 extension UIView {
     
     func settingCell(){
-        self.layer.cornerRadius = 20
-        self.layer.shadowOffset = CGSize(width: -1, height: 1)
+      self.layer.cornerRadius = 20
+        self.layer.shadowOffset = CGSize(width: -1, height: 0.6)
         self.layer.shadowRadius = 1
-        self.layer.shadowOpacity = 0.3
+        self.layer.shadowOpacity = 0.4
         
         
     }

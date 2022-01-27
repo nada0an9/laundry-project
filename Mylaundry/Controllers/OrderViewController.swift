@@ -36,11 +36,11 @@ class OrderViewController: UIViewController, UICollectionViewDataSource, UIColle
             cell.orderImage.image = UIImage(named: "image-2.png")
         }
         else if(orderArray[indexPath.row].orderStatus == "completed"){
-        cell.orderImage.image = UIImage(named: "image-2-2.png")
+            cell.orderImage.image = UIImage(named: "image-2-2.png")
         }
         else{
             cell.orderImage.image = UIImage(named: "image-2-3.png")
-
+            
         }
         return cell
         
@@ -56,26 +56,25 @@ class OrderViewController: UIViewController, UICollectionViewDataSource, UIColle
         super.viewDidLoad()
         orderCollection.dataSource = self
         orderCollection.delegate = self
-
+        
         let db = DatabaseHandler()
         db.readAllOrder { orderArray in
             print("my orders")
             
-          
+            
             self.orderArray = orderArray
-
+            
             //reload the data
             DispatchQueue.main.async {
                 self.orderCollection.reloadData()
             }
         }
         
-        
     }
     override func viewWillAppear(_ animated: Bool) {
         orderCollection.dataSource = self
         orderCollection.delegate = self
-
+        
         let db = DatabaseHandler()
         db.readAllOrder { orderArray in
             print("my orders")

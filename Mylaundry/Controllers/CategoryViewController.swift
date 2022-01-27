@@ -12,8 +12,15 @@ class CategoryViewController: UIViewController , UICollectionViewDelegate, UICol
         categoryImage.count
     }
     
-    @IBOutlet weak var categoryCellView: UIView!
-
+    var id = ""
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "show_servises"
+        {
+            let detailsVC = segue.destination as! ServiceProviderDetailsViewController
+            detailsVC.s = self.id
+        }
+        
+    }
     @IBOutlet weak var categoryCollection: UICollectionView!
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -28,7 +35,7 @@ class CategoryViewController: UIViewController , UICollectionViewDelegate, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "", sender: self)
+        performSegue(withIdentifier: "show_servises", sender: self)
     }
 
     
@@ -36,18 +43,17 @@ class CategoryViewController: UIViewController , UICollectionViewDelegate, UICol
         super.viewDidLoad()
         categoryCollection.dataSource = self
         categoryCollection.delegate = self
-//        settingCell()
   
     }
     
     
     var categoryImage: [UIImage] = [
-        UIImage(named: "laundry-app-design-8.png")!,
-        UIImage(named: "laundry-app-design-10.png")!,
-        UIImage(named: "laundry-app-design-11.png")!,
-        UIImage(named: "laundry-app-design-12.png")!,
-        UIImage(named: "laundry-app-design-13.png")!,
-        UIImage(named: "laundry-app-design-14.png")!
+        UIImage(named: "powder.png")!,
+        UIImage(named: "deep.png")!,
+        UIImage(named: "dry.png")!,
+        UIImage(named: "stream.png")!,
+        UIImage(named: "washing.png")!,
+        UIImage(named: "formal.png")!
 
     ]
 
