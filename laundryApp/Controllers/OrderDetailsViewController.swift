@@ -19,7 +19,6 @@ class OrderDetailsViewController: UIViewController ,UICollectionViewDataSource, 
         cell.layer.cornerRadius = 12;
         cell.name.text =  orderService[indexPath.row].servicesName
         cell.qty.text = orderService[indexPath.row].servicesQty
-        cell.price.text = orderService[indexPath.row].servicesPrice
         return cell
     }
     
@@ -45,10 +44,10 @@ class OrderDetailsViewController: UIViewController ,UICollectionViewDataSource, 
                 self.name.text = order.customer.customerName
                 self.mobile.text = order.customer.customerMobile
                 self.orderDate.text = order.orderDate
-                if(order.orderStatus == "new order"){
+                if(order.orderStatus == "New Order"){
                     self.orderStatusSegemnt.selectedSegmentIndex = 0
                 }
-                else if(order.orderStatus == "completed"){
+                else if(order.orderStatus == "Completed"){
                     self.orderStatusSegemnt.selectedSegmentIndex = 1
                 }
                 else{
@@ -63,10 +62,10 @@ class OrderDetailsViewController: UIViewController ,UICollectionViewDataSource, 
         let db = DatabaseHandler()
         
         if orderStatusSegemnt.selectedSegmentIndex == 0 {
-            db.updatedOrdersStatus(orderId: orderId, status: "new order")
+            db.updatedOrdersStatus(orderId: orderId, status: "New Order")
             
         } else if orderStatusSegemnt.selectedSegmentIndex == 1 {
-            db.updatedOrdersStatus(orderId: orderId, status: "completed")
+            db.updatedOrdersStatus(orderId: orderId, status: "Completed")
             
         } else {
             db.updatedOrdersStatus(orderId: orderId, status: "in collect")

@@ -75,7 +75,8 @@ class DatabaseHandler{
             }
         print("Service Provider Profile Updated Sucsessfuly")
     }
-    
+    // MARK:   Services
+
     func readAllservices(){
         dbStore.collection("services").addSnapshotListener { [self] snapshot, error in
             if let doc = snapshot?.documents{
@@ -129,9 +130,8 @@ class DatabaseHandler{
             }
     }
     
-    // MARK:  READ Orders
+    // MARK:   Orders
     func readAllOrder(completion: @escaping ([order]) -> Void ){
-
         var orderArray = [order]()
         dbStore.collection("order").whereField("serviceProviderId",isEqualTo: Auth.auth().currentUser?.uid).addSnapshotListener { [] snapshot, error in
             if let doc = snapshot?.documents{

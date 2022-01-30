@@ -64,7 +64,7 @@ class AllOrdersViewController: UIViewController ,UICollectionViewDataSource, UIC
             let db = DatabaseHandler()
             db.readAllOrder { orders in
                 DispatchQueue.main.async {
-                    self.orderArray = orders.filter { $0.orderStatus == "completed" }
+                    self.orderArray = orders.filter { $0.orderStatus == "Completed" }
                     print(self.orderArray)
                     self.orderLists.reloadData()
                 }
